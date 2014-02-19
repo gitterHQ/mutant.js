@@ -38,6 +38,36 @@ JS.Test.describe('Mutant', function() { with(this) {
 
     }});
 
+    it('should disconnect as expected', function(resume) { with(this) {
+      var count = 0;
+
+      /* Yeech, there must be a better way to do this? */
+      var test = this;
+
+      function callback() {
+        count++;
+
+        test.assertEqual(1, count);
+
+        mutant.disconnect();
+
+        /* Mutate a second time */
+        var span = document.createElement('SPAN');
+        appendDiv.appendChild(span);
+
+        /* Give the disconnect some time for erroroneous events to come through */
+        setTimeout(resume, 20);
+      }
+      var Mutant = window.Mutant;
+      var mutant = new Mutant(appendDiv, callback);
+
+
+      /* Mutate */
+      var span = document.createElement('SPAN');
+      appendDiv.appendChild(span);
+
+    }});
+
 
     it('detect an image load', function(resume) { with(this) {
       var div = document.createElement('DIV');
@@ -56,10 +86,12 @@ JS.Test.describe('Mutant', function() { with(this) {
         count++;
 
         if(count === 1) {
-          /* Insert a second one, after monitoring has started */
-          var img = document.createElement('IMG');
-          img.setAttribute('src','https://ci.testling.com/gitterhq/mutant.js.png?q=' + (Date.now() + 1));
-          div.appendChild(img);
+          setTimeout(function() {
+            /* Insert a second one, after monitoring has started */
+            var img = document.createElement('IMG');
+            img.setAttribute('src','https://ci.testling.com/gitterhq/mutant.js.png?q=' + (Date.now() + 1));
+            div.appendChild(img);
+          }, 1);
 
           return;
         }
