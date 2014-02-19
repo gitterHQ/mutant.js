@@ -1,6 +1,8 @@
 
 # mutant.js
 
+[![Build Status](https://travis-ci.org/gitterHQ/mutant.js.png?branch=master)](https://travis-ci.org/gitterHQ/mutant.js)
+
   mutant.js
 
   `npm test`
