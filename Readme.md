@@ -46,7 +46,7 @@ None. Nada. Nil.
 
 ```javascript
 function layout() {
-
+  /* Recenter your popover here, or adjust your scroll, etc etc */
 }
 
 var div = document.querySelector('.my-div');
