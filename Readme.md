@@ -1,19 +1,66 @@
+## mutant.js
 
-# mutant.js
+*"The only constant is change" -- Splinter*
 
-[![Build Status](https://travis-ci.org/gitterHQ/mutant.js.png?branch=master)](https://travis-ci.org/gitterHQ/mutant.js)
+Get told about DOM mutations and other events which will affect layout.
 
+
+[![Build Status](https://travis-ci.org/gitterHQ/mutant.js.png?branch=master)](https://travis-ci.org/gitterHQ/mutant.js) [![Gitter chat](https://badges.gitter.im/gitterHQ/mutant.js.png)](https://gitter.im/gitterHQ/mutant.js)
+
+----------------
 
 [![Browser compatibility](https://ci.testling.com/gitterHQ/mutant.js.png)](https://ci.testling.com/gitterHQ/mutant.js)
 
+----------------
+
+## Why mutant.js?
+
+Sometimes you need to know when the layout of an HTML element has changed.
+
+For example, on [Gitter](https://gitter.im) we have popover components in which the size of the popover may change as new content is added or removed.
+
+Another place we need this is in order to support reverse scrolling. If the user is scrolled to the bottom of a screen and new content arrives, the scroll viewport should be adjusted down to track the "bottom". Likewise, when new content arrives above the top of the viewport, the scroll must be adjusted so that the users view is maintained and does not jump.
+
+Because we use external and user supplied content, including oembed and images, it's not always possible to know exactly when the DOM will change.
+
+Using a timer is inefficient and the user's experience will be jumpy.
 
 
+## How to use it
 
-  mutant.js
+```shell
+git clone git@github.com:gitterHQ/mutant.js.git
 
-  `npm test`
+cd mutant.js
 
-  `make`
+make
+```
+
+Then include `public/assets/mutant.js` in your browser application.
+
+## Dependencies
+
+None. Nada. Nil.
+
+## API
+
+```javascript
+function layout() {
+
+}
+
+var div = document.querySelector('.my-div');
+var mutant = new Mutant(div, layout);
+
+/* If you make a change and dont want to be notified of it, call takeRecords */
+setTimeout(function() {
+  div.appendChild(document.createElement('SPAN'));
+  mutant.takeRecords(); // Now you wont be notified of the span event.
+}, 10);
+
+/* Sometime later, when you're done. Call disconnect */
+mutant.disconnect();
+```
 
 ## License
 
