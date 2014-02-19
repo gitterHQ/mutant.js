@@ -3,6 +3,10 @@
 
   mutant.js
 
+  `npm test`
+
+  `make`
+
 ## License
 
   The MIT License (MIT)
