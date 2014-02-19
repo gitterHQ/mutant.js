@@ -1,0 +1,48 @@
+<!-- example/browser.html -->
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jstest</title>
+  </head>
+  <body>
+    <script src="./lib/mutant.js"></script>
+    <script type="text/javascript">
+    var div = document.createElement('DIV');
+    document.body.appendChild(div);
+
+    var img = document.createElement('IMG');
+    img.setAttribute('src','https://ci.testling.com/gitterhq/mutant.js.png?q=' + Date.now());
+    div.appendChild(img);
+
+    var count = 0;
+
+    function callback() {
+      count++;
+
+      if(count === 1) {
+        setTimeout(function() {
+          /* Insert a second one, after monitoring has started */
+          var img = document.createElement('IMG');
+          img.setAttribute('src','https://ci.testling.com/gitterhq/mutant.js.png?q=' + (Date.now() + 1));
+          div.appendChild(img);
+        }, 1);
+
+        return;
+      }
+
+      mutant.disconnect();
+
+      if(count !== 2) {
+        throw new Error('assert');
+      }
+    }
+
+    var Mutant = window.Mutant;
+    var mutant = new Mutant(div, callback);
+
+    </script>
+
+  </body>
+</html>
