@@ -3,6 +3,12 @@
 
 [![Build Status](https://travis-ci.org/gitterHQ/mutant.js.png?branch=master)](https://travis-ci.org/gitterHQ/mutant.js)
 
+
+[![Browser compatibility](https://ci.testling.com/gitterHQ/mutant.js.png)](https://ci.testling.com/gitterHQ/mutant.js)
+
+
+
+
   mutant.js
 
   `npm test`
