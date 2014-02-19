@@ -4,7 +4,7 @@
   "description": "Mutation watcher",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "phantomjs phantom.js"
   },
   "author": "Andrew Newdigate <andrew@gitter.im>",
   "license": "MIT",
