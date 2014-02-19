@@ -2,7 +2,7 @@
   "javascript": {
     "mutant.js": {
       "sources": [
-        "public/javascripts/mutant.js"
+        "lib/mutant.js"
       ],
       "targets": {
         "min": "public/assets/mutant.js"

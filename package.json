@@ -8,13 +8,33 @@
   },
   "author": "Andrew Newdigate <andrew@gitter.im>",
   "license": "MIT",
+  "repository": "git@github.com:gitterHQ/mutant.js.git",
   "wake": {
-     "javascript": {
-       "sourceDirectory": "public/javascripts",
-       "targetDirectory": "public/assets",
-       "targets": {
-         "mutant.js": ["mutant.js"]
-       }
-     }
-   }
+    "javascript": {
+      "sourceDirectory": "lib",
+      "targetDirectory": "public/assets",
+      "targets": {
+        "mutant.js": ["mutant.js"]
+      }
+    }
+  },
+  "testling": {
+    "scripts": [
+      "node_modules/jstest/jstest.js",
+      "lib/mutant.js",
+      "spec/mutant_spec.js",
+      "./runner.js"
+    ],
+    "browsers": {
+      "chrome":   [25],
+      "iexplore": [6, 7, 8, 9, 10, 11],
+      "firefox":  [3.6, 19],
+      "opera":    [10.5, 11.6, 12.0],
+      "safari":   [5.1, 6.0]
+    }
+  },
+  "devDependencies": {
+    "jstest": "~1.0.4",
+    "wake": "~0.3.1"
+  }
 }
