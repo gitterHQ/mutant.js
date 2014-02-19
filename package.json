@@ -14,30 +14,28 @@
       "sourceDirectory": "lib",
       "targetDirectory": "public/assets",
       "targets": {
-        "mutant.js": ["mutant.js"]
+        "mutant.js": [
+          "mutant.js"
+        ]
       }
     }
   },
   "testling": {
-    "scripts": [
-      "node_modules/jstest/jstest.js",
-      "lib/mutant.js",
-      "spec/mutant_spec.js",
-      "./runner.js"
-    ],
+    "html": "browser.html",
     "browsers": [
-          "ie/9..latest",
-          "chrome/23..latest",
-          "firefox/22..latest",
-          "safari/latest",
-          "opera/latest",
-          "iphone/6",
-          "ipad/6",
-          "android-browser/latest"
-        ]
+      "ie/9..latest",
+      "chrome/23..latest",
+      "firefox/22..latest",
+      "safari/latest",
+      "opera/latest",
+      "iphone/6",
+      "ipad/6",
+      "android-browser/latest"
+    ]
   },
   "devDependencies": {
     "jstest": "~1.0.4",
-    "wake": "~0.3.1"
+    "wake": "~0.3.1",
+    "tape": "~2.4.2"
   }
 }
