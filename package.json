@@ -1,0 +1,20 @@
+{
+  "name": "mutant",
+  "version": "0.0.1",
+  "description": "Mutation watcher",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Newdigate <andrew@gitter.im>",
+  "license": "MIT",
+  "wake": {
+     "javascript": {
+       "sourceDirectory": "public/javascripts",
+       "targetDirectory": "public/assets",
+       "targets": {
+         "mutant.js": ["mutant.js"]
+       }
+     }
+   }
+}
