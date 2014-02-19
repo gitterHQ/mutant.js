@@ -12,4 +12,4 @@ clean:
 	rm -fr public/assets/
 	mkdir -p public/assets/
 
-.PHONY: clean npm
+.PHONY: clean npm test
