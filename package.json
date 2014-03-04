@@ -24,7 +24,7 @@
     "html": "browser.html",
     "browsers": [
       "ie/9..latest",
-      "chrome/23..latest",
+      "chrome/18..latest",
       "firefox/22..latest",
       "safari/latest",
       "opera/latest",
