@@ -62,6 +62,21 @@ setTimeout(function() {
 mutant.disconnect();
 ```
 
+By default only `childList` and `subtree` are being observed as mutation properties, but you can specify your own options as a third argument.
+
+```javascript
+var options = {
+  observers: {
+    childList: true, // listen to div's child elements additions or removals, default: true
+    subtree: false, // don't listen to div's descendants mutations, default: true
+    attributres: true // also listen to div's attributes updates, default: false
+  }
+}
+var mutant = new Mutant(div, layout, options);
+```
+
+All available mutation properties and their descriptions are listed on [MDN](https://developer.mozilla.org/en/docs/Web/API/MutationObserver#MutationObserverInit).
+
 ## License
 
   The MIT License (MIT)
