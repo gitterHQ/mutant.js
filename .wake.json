@@ -5,7 +5,8 @@
         "lib/mutant.js"
       ],
       "targets": {
-        "min": "public/assets/mutant.js"
+        "src": "public/assets/mutant.js",
+        "min": "public/assets/mutant-min.js"
       }
     }
   }
