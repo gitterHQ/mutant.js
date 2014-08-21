@@ -1,4 +1,5 @@
 ## mutant.js
+[![Gitter chat](https://badges.gitter.im/gitterHQ/mutant.js.png)](https://gitter.im/gitterHQ/mutant.js)
 
 *"The only constant is change" -- Splinter*
 
