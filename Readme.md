@@ -5,7 +5,7 @@
 Get told about DOM mutations and other events which will affect layout.
 
 
-[![Build Status](https://travis-ci.org/gitterHQ/mutant.js.png?branch=master)](https://travis-ci.org/gitterHQ/mutant.js) [![Gitter chat](https://badges.gitter.im/gitterHQ/mutant.js.png)](https://gitter.im/gitterHQ/mutant.js)
+[![Build Status](https://travis-ci.org/gitterHQ/mutant.js.svg?branch=master)](https://travis-ci.org/gitterHQ/mutant.js) [![Gitter chat](https://badges.gitter.im/gitterHQ/mutant.js.png)](https://gitter.im/gitterHQ/mutant.js)
 
 ----------------
 
