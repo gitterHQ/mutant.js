@@ -92,6 +92,32 @@ var options = {
 var mutant = new Mutant(div, layout, options);
 ```
 
+### Receiving periodic notifications during a transition
+
+Unfortunately there is no easy way to detect the start of a transition in the DOM, although this 
+may change. Until there is, you can only get transition events at the end of the transition.
+
+If you wish to receive period events _during_ the transition, in order to make the user experience
+smoother, you can tell Mutant.js to expect a transition using `startTransition` and `endTransition`.
+
+#### Start a transition 
+`startTransition(element, maxTimeMs)`
+`element` the element which will be involved in the transition
+`maxTimeMs` (optional) is the maximum time the transition will occur for, in ms
+
+#### End a transition 
+Note that endTransition is not needed if `maxTimeMs` is used in the `startTransition` call.
+`endTransition(element, maxTimeMs)`
+`element` the element which was involved in the transition
+
+Example: 
+```javascript
+function doAnimation() {
+  var el = document.querySelector(...);
+  mutant.startTransition(element, 100)
+}
+```
+
 
 ## License
 
