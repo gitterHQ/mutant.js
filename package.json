@@ -1,6 +1,6 @@
 {
   "name": "mutant",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Mutation watcher",
   "main": "lib/mutant.js",
   "scripts": {
