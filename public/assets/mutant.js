@@ -29,6 +29,16 @@
     };
   }
 
+  function defaults(target, defaultValues) {
+    if(!target) target = {};
+    for(var key in defaultValues) {
+      if(!target.hasOwnProperty(key)) {
+        target[key] = defaultValues[key];
+      }
+    }
+    return target;
+  }
+
 
 
   /**
@@ -134,33 +144,55 @@
     element.removeAttribute(attrName);
     return;
   }
+
+  /* From Modernizr */
+  function whichTransitionEvent(){
+    var el = document.createElement('fakeelement');
+
+    var transitions = {
+      'transition':'transitionend',
+      'OTransition':'oTransitionEnd',
+      'MozTransition':'transitionend',
+      'WebkitTransition':'webkitTransitionEnd'
+    };
+
+    for(var t in transitions){
+      if(el.style[t] !== undefined) {
+        return transitions[t];
+      }
+    }
+  }
+
+  var transitionEventName = whichTransitionEvent();
+
   /**
    * Mutant
    */
   function Mutant(target, callback, options) {
+    if(!options) options = {};
     this._eventHandlers = {};
 
-    var scope = options && options.scope ? options.scope : null;
-    var throttleTimeout = options && options.timeout ? options.timeout : 0;
+    var scope = options.scope || null;
+    var throttleTimeout = options.timeout || 0;
     var self = this;
 
-    if(throttleTimeout) {
-      this._callback = throttle(function() {
-        try {
-          callback.apply(scope);
-        } finally {
-          self.takeRecords();
-        }
-      }, throttleTimeout);
-    } else {
-      this._callback = function() {
-        try {
-          callback.apply(scope);
-        } finally {
-          self.takeRecords();
-        }
-      };
+    function doSafeCallback() {
+      try {
+        callback.apply(scope);
+      } finally {
+        // If the callback mutants the DOM, prevent 'feedback'
+        // which would otherwise crash the browser
+        self.takeRecords();
+      }
     }
+
+    var wrappedCallback;
+    if(throttleTimeout) {
+      wrappedCallback = throttle(doSafeCallback, throttleTimeout);
+    } else {
+      wrappedCallback = doSafeCallback;
+    }
+    this._callback = wrappedCallback;
 
     /* Find any existing loading images in the target */
     this._findLoadingImages(target);
@@ -168,21 +200,28 @@
     this._mutationCallback = bind(this._mutationCallback, this);
     this.observer = new MutationObserver(this._mutationCallback);
 
-    // pass in the target node, as well as the observer options
-    var observers = {
-      attributes: options && options.observers && options.observers.attributes || false,
-      childList: options && options.observers && options.observers.childList ? options.types.childList : true,
-      characterData: options && options.observers && options.observers.characterData || false,
-      subtree: options && options.observers && options.observers.subtree ? options.types.subtree : true,
-      attributeFilter: options && options.observers && options.observers.attributeFilter || []
-    };
-    if (observers.attributes && options.observers.attributeOldValue) {
-      observers.attributeOldValue = options.observers.attributeOldValue;
+    var observerOptions = defaults(options.observers, {
+      attributes: false,
+      childList: true,
+      characterData: false,
+      subtree: true,
+      attributeOldValue: false,
+      characterDataOldValue: false
+    });
+
+    this.observer.observe(target, observerOptions);
+
+    if(options.transitions) {
+      // Create a handler
+      this._transitionEndHandler = {
+        target: target,
+        handleEvent: function(e) {
+          wrappedCallback();
+        }
+      };
+
+      target.addEventListener(transitionEventName, this._transitionEndHandler, false);
     }
-    if (observers.characterData && options.observers.characterDataOldValue) {
-      observers.characterDataOldValue = options.observers.characterDataOldValue;
-    }
-    this.observer.observe(target, observers);
   }
 
   Mutant.prototype = {
@@ -275,6 +314,11 @@
 
     disconnect: function() {
       this.observer.disconnect();
+      if(this._transitionEndHandler) {
+        var target = this._transitionEndHandler.target;
+        target.removeEventListener(transitionEventName, this._transitionEndHandler, false);
+      }
+
       var eh = this._eventHandlers;
 
       Object.keys(eh).forEach(function(id) {

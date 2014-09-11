@@ -77,6 +77,22 @@ var mutant = new Mutant(div, layout, options);
 
 All available mutation properties and their descriptions are listed on [MDN](https://developer.mozilla.org/en/docs/Web/API/MutationObserver#MutationObserverInit).
 
+## Responding to transitionend events
+
+Mutant.js can optionally also fire events at the end of a CSS3 transition sequence. By default this will not happen but can be useful to notify of mutations that occur over a duration of time.
+
+Enable support for transition events using the `transitions:true` option.
+
+```javascript
+
+var options = {
+  transitions: true
+}
+
+var mutant = new Mutant(div, layout, options);
+```
+
+
 ## License
 
   The MIT License (MIT)
