@@ -1,7 +1,7 @@
 {
-  "name": "mutant",
+  "name": "mutantjs",
   "version": "0.1.0",
-  "description": "Mutation watcher",
+  "description": "Mutation watcher and reflow detection for the browser",
   "main": "lib/mutant.js",
   "scripts": {
     "test": "phantomjs phantom.js"
