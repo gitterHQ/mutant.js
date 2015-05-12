@@ -82,7 +82,7 @@ All available mutation properties and their descriptions are listed on [MDN](htt
 
 Mutant.js can optionally also fire events at the end of a CSS3 transition sequence. By default this will not happen but can be useful to notify of mutations that occur over a duration of time.
 
-Enable support for transition events using the `transitions:true` option.
+Enable support for transition events using the `transitions:true` option, like so
 
 ```javascript
 
@@ -93,25 +93,44 @@ var options = {
 var mutant = new Mutant(div, layout, options);
 ```
 
+
+#### Using mutantjs to detect reflow events
+
+If you are using mutant.js to detect events which will trigger a reflow, you
+can optimise your configuration to ignore specific `transitionend` events. For
+example `opacity` events will not trigger a reflow, so can therefore be
+ignored. Specify a blacklist of css properties to ignore `transitionend` events
+in the Mutant constructor using the `ignoreTransitions` property as follows:
+
+```javascript
+
+var options =
+
+var mutant = new Mutant(div, layout, options, {
+  transitions: true,
+  ignoreTransitions: ['opacity'], // Opacity will never trigger a reflow...
+});
+```
+
 ### Receiving periodic notifications during a transition
 
-Unfortunately there is no easy way to detect the start of a transition in the DOM, although this 
+Unfortunately there is no easy way to detect the start of a transition in the DOM, although this
 may change. Until there is, you can only get transition events at the end of the transition.
 
 If you wish to receive period events _during_ the transition, in order to make the user experience
 smoother, you can tell Mutant.js to expect a transition using `startTransition` and `endTransition`.
 
-#### Start a transition 
+#### Start a transition
 `startTransition(element, maxTimeMs)`
 `element` the element which will be involved in the transition
 `maxTimeMs` (optional) is the maximum time the transition will occur for, in ms
 
-#### End a transition 
+#### End a transition
 Note that endTransition is not needed if `maxTimeMs` is used in the `startTransition` call.
 `endTransition(element, maxTimeMs)`
 `element` the element which was involved in the transition
 
-Example: 
+Example:
 ```javascript
 function doAnimation() {
   var el = document.querySelector(...);
