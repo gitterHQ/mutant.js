@@ -104,7 +104,9 @@ in the Mutant constructor using the `ignoreTransitions` property as follows:
 
 ```javascript
 
-var options =
+function layout() {
+  // Do something here
+}
 
 var mutant = new Mutant(div, layout, options, {
   transitions: true,
