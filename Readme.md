@@ -70,7 +70,7 @@ var options = {
   observers: {
     childList: true, // listen to div's child elements additions or removals, default: true
     subtree: false, // don't listen to div's descendants mutations, default: true
-    attributres: true // also listen to div's attributes updates, default: false
+    attributes: true // also listen to div's attributes updates, default: false
   }
 }
 var mutant = new Mutant(div, layout, options);
